@@ -21,7 +21,21 @@ export const useNotesStore = defineStore('notes', () => {
   const getNoteContent = computed(() => (id) => {
     return notes.value.filter((note) => note.id === id)[0].content
   })
+  const totalNotesCount = computed(() => {
+    return notes.value.length
+  })
+  const totalCharactersCount = computed(() => {
+    let counter = 0;
+    notes.value.forEach((note) => {
+      counter += note.content.length
+    })
 
+    return counter
+  })
+
+  /* 
+    Methods
+  */
   const addNotes = (newNoteContent) => {
     const note = {
       id: uuidv4(),
@@ -43,6 +57,8 @@ export const useNotesStore = defineStore('notes', () => {
   return {
     notes,
     getNoteContent,
+    totalNotesCount,
+    totalCharactersCount,
     addNotes,
     deleteNotes,
     updateNote

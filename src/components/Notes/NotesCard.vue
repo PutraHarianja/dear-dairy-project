@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-content">
       {{ note.content }}
-      <div class="has-text-right-desktop has-text-grey-light mt-2">
+      <div class="has-text-right-desktop has-text-right-touch has-text-grey-light mt-2">
         <small>{{ characterLength }}</small>
       </div>
     </div>
