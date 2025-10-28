@@ -8,6 +8,7 @@
         </div>
 
         <a
+          ref="navbarBurger"
           @click.prevent="showNavbarMenu = !showNavbarMenu"
           role="button"
           class="navbar-burger"
@@ -23,7 +24,12 @@
         </a>
       </div>
 
-      <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showNavbarMenu }">
+      <div
+        ref="navbarMenu"
+        id="navbarBasicExample"
+        class="navbar-menu"
+        :class="{ 'is-active': showNavbarMenu }"
+      >
         <div class="navbar-end">
           <RouterLink
             @click="showNavbarMenu = false"
@@ -50,8 +56,21 @@
 
 <script setup>
 import { ref } from "vue";
+import { onClickOutside } from "@vueuse/core";
 
 const showNavbarMenu = ref(false);
+const navbarMenu = ref(null);
+const navbarBurger = ref(null);
+
+onClickOutside(
+  navbarMenu,
+  () => {
+    showNavbarMenu.value = false;
+  },
+  {
+    ignore: [navbarBurger],
+  }
+);
 </script>
 
 <style scoped>

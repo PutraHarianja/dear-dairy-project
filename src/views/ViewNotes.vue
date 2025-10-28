@@ -21,6 +21,7 @@ import NotesCard from "@/components/Notes/NotesCard.vue";
 import EditForm from "@/components/Notes/EditForm.vue";
 import { useNotesStore } from "@/stores/notesStore";
 import { storeToRefs } from "pinia";
+import { useWatchCharacters } from "@/use/useWatchCharacters";
 
 const notesStore = useNotesStore();
 const { notes } = storeToRefs(notesStore);
@@ -37,4 +38,10 @@ const addNewNotes = () => {
   newNote.value = "";
   editNotesRef.value.focusTextArea();
 };
+
+/* 
+  Watcher
+*/
+
+useWatchCharacters(newNote);
 </script>

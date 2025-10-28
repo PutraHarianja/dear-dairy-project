@@ -8,15 +8,21 @@
     </div>
     <footer class="card-footer">
       <RouterLink :to="`/edit/${note.id}`" href="#" class="card-footer-item">Edit</RouterLink>
-      <a href="#" class="card-footer-item" @click="deleteNotes(note.id)">Delete</a>
+      <a href="#" class="card-footer-item" @click="modal.deleteNotes = true">Delete</a>
     </footer>
+    <ModalDeleteConfirmation
+      v-if="modal.deleteNotes"
+      v-model="modal.deleteNotes"
+      :noteId="note.id"
+    />
   </div>
 </template>
 
 <script setup>
-import { computed, toRefs } from "vue";
+import { computed, toRefs, reactive } from "vue";
 import { useNotesStore } from "@/stores/notesStore";
 import { RouterLink } from "vue-router";
+import ModalDeleteConfirmation from "./ModalDeleteConfirmation.vue";
 
 const props = defineProps({
   note: {
@@ -28,6 +34,10 @@ const props = defineProps({
 const { deleteNotes } = useNotesStore();
 
 const { note } = toRefs(props);
+
+const modal = reactive({
+  deleteNotes: false,
+});
 
 const characterLength = computed(() => {
   const length = note.value.content.length;
